@@ -159,9 +159,9 @@ const ContactUs = () => {
             <Card className="shadow-card mt-6">
               <CardContent className="p-6 space-y-5">
                 <div>
-                  <h3 className="font-semibold mb-2">Admin / Seller Portal</h3>
+                  <h3 className="font-semibold mb-2">Send Your Note</h3>
                   <p className="text-muted-foreground text-sm">
-                    Enter your User ID, Password, and Note to submit a request. Admins can sign in directly to manage sellers.
+                    Only for Authorized Users.
                   </p>
                 </div>
 
@@ -213,7 +213,7 @@ const ContactUs = () => {
                       rows={4}
                     />
                     <p className="text-xs text-muted-foreground">
-                      Note is optional only for admins (User ID: Thanujan).
+                      
                     </p>
                   </div>
 
