@@ -1,0 +1,18 @@
+# Security Headers Configuration
+# Add these headers to your server configuration for better security
+
+# Content Security Policy
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://wa.me https://api.wa.me;
+
+# X-Frame-Options
+X-Frame-Options: DENY
+
+# X-Content-Type-Options
+X-Content-Type-Options: nosniff
+
+# Referrer Policy
+Referrer-Policy: strict-origin-when-cross-origin
+
+# Permissions Policy
+Permissions-Policy: geolocation=(), microphone=(), camera=()
+
