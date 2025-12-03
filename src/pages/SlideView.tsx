@@ -6,9 +6,9 @@ const SlideView = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="mx-auto max-w-7xl px-1 py-1 md:px-1 md:py-1">
-        <div className="mb-2 md:mb-2">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold mb-2">
+      <section className="mx-auto max-w-7xl px-0.5 py-0.5 md:px-1 md:py-1">
+        <div className="mb-1 md:mb-1">
+          <h1 className="text-3xl md:text-4xl font-serif font-bold mb-1">
             Slide Images
           </h1>
           <p className="text-sm md:text-base text-muted-foreground">
@@ -17,7 +17,7 @@ const SlideView = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-1 md:gap-2 lg:gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0.5 md:gap-1 lg:gap-1">
           {slideImages.map((image, index) => (
             <div
               key={`${image.src}-${index}`}
@@ -30,8 +30,8 @@ const SlideView = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="p-3">
-                <p className="text-xs text-muted-foreground break-all mb-1">
+              <div className="p-2">
+                <p className="text-xs text-muted-foreground break-all mb-0.5">
                   {image.src}
                 </p>
                 <p className="text-sm font-medium">{image.alt}</p>

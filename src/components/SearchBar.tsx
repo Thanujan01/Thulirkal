@@ -20,7 +20,7 @@ export const SearchBar = ({ value, onChange, onSearch, placeholder = "Search pro
   };
 
   return (
-    <div className="w-full max-w-full mx-auto py-2 px-2 sm:px-3">
+    <div className="w-full max-w-full mx-auto py-1 px-1 sm:px-3">
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
         <Input
