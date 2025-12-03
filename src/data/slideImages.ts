@@ -7,7 +7,7 @@ export interface SlideImage {
 }
 
 export const slideImages: SlideImage[] = [
-  { src: "/jewelleries/br_c1.jpg", alt: "Handcrafted bracelet collection 1" },
+  { src: "/slide.png", alt: "HandCrafted with Love" },
   { src: "/jewelleries/br_c2.jpg", alt: "Handcrafted bracelet collection 2" },
   { src: "/jewelleries/br1_1.jpg", alt: "Unique handmade bracelet close-up" },
 ];
