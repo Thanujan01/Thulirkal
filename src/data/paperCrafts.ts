@@ -17,6 +17,7 @@ export const paperCrafts: Product[] = [
     ,
     sellerId: "SE016",
     size: "A6 (approx)",
+    weight: "150 g",
     material: "Premium Paper",
     customizable: true,
     deliveryFee: 120
@@ -37,6 +38,7 @@ export const paperCrafts: Product[] = [
     ,
     sellerId: "SE017",
     size: "30x30 cm",
+    weight: "400 g",
     material: "Paper / Cardstock",
     customizable: false,
     deliveryFee: 200
@@ -57,6 +59,7 @@ export const paperCrafts: Product[] = [
     ,
     sellerId: "SE018",
     size: "Varies",
+    weight: "200 g",
     material: "Paper",
     customizable: false,
     deliveryFee: 150
@@ -77,6 +80,7 @@ export const paperCrafts: Product[] = [
     ,
     sellerId: "SE019",
     size: "30 cm bouquet",
+    weight: "300 g",
     material: "Paper",
     customizable: true,
     deliveryFee: 180

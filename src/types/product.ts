@@ -8,6 +8,7 @@ export interface Product {
   sellerId: string;
   // Optional product specifications
   size?: string;
+  weight?: string;
   material?: string;
   customizable?: boolean;
   // Per-product delivery fee (admin-editable). Currency: LKR

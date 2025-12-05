@@ -35,13 +35,20 @@ const CategoryPage = () => {
 
   const categoryData = categorySlug ? categoryMap[categorySlug] : null;
 
+  // Shuffle products for random display (only when not searching)
+  const shuffledProducts = useMemo(() => {
+    if (!categoryData) return [];
+    const shuffled = [...categoryData.products].sort(() => Math.random() - 0.5);
+    return shuffled;
+  }, [categoryData]);
+
   const filteredProducts = useMemo(() => {
     if (!categoryData) return [];
-    if (!searchQuery.trim()) return categoryData.products;
+    if (!searchQuery.trim()) return shuffledProducts;
 
     // Use search utility to get ranked results (best matches first)
-    return searchProducts(categoryData.products, searchQuery);
-  }, [searchQuery, categoryData]);
+    return searchProducts(shuffledProducts, searchQuery);
+  }, [searchQuery, shuffledProducts, categoryData]);
 
   if (!categoryData) {
     return (

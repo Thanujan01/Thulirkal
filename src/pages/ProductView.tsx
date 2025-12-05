@@ -1,16 +1,21 @@
-import { useState, useRef } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ShoppingCart, MessageCircle } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
 import { getWhatsAppLink } from "@/lib/cart";
 import { toast } from "@/hooks/use-toast";
-import { findProductById } from "@/utils/products";
+import { findProductById, getProductsByCategory, getAllProducts } from "@/utils/products";
+import { ProductCard } from "@/components/ProductCard";
+import { ProductCardMobile } from "@/components/ProductCardMobile";
+import { Product } from "@/types/product";
 
 const ProductView = () => {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isInitialMount = useRef(true);
   
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
@@ -18,6 +23,60 @@ const ProductView = () => {
   const { addToCart } = useCart();
 
   const product = findProductById(productId);
+
+  // Get related products (same category, excluding current product)
+  const relatedProducts = useMemo(() => {
+    if (!product) return [];
+    
+    // Map category name to slug
+    const categorySlugMap: Record<string, string> = {
+      "Jewelries": "jewelries",
+      "Resin Arts": "resin-arts",
+      "Flower Vases": "flower-vases",
+      "Hand Crafts": "hand-crafts",
+      "Photo Frames": "photo-frames",
+    };
+    
+    const categorySlug = categorySlugMap[product.category] || product.category.toLowerCase().replace(/\s+/g, "-");
+    const categoryProducts = getProductsByCategory(categorySlug);
+    
+    return categoryProducts
+      .filter((p) => p.id !== product.id)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 8); // Show up to 8 related products
+  }, [product]);
+
+  // Get other products (20 random products excluding current and related)
+  const otherProducts = useMemo(() => {
+    if (!product) return [];
+    
+    const allProducts = getAllProducts();
+    const excludeIds = [product.id, ...relatedProducts.map((p) => p.id)];
+    
+    return allProducts
+      .filter((p) => !excludeIds.includes(p.id))
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 20); // Show 20 random products
+  }, [product, relatedProducts]);
+
+  // Prevent refresh on back navigation and preserve scroll position
+  useEffect(() => {
+    // Check if this is a back navigation by comparing with previous productId
+    const previousProductId = sessionStorage.getItem("lastViewedProductId");
+    const isBackNavigation = previousProductId === productId && !isInitialMount.current;
+    
+    if (isInitialMount.current) {
+      // First load - scroll to top
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      isInitialMount.current = false;
+      sessionStorage.setItem("lastViewedProductId", productId || "");
+    } else if (!isBackNavigation) {
+      // New product navigation - scroll to top
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      sessionStorage.setItem("lastViewedProductId", productId || "");
+    }
+    // If it's a back navigation, don't scroll (preserve scroll position)
+  }, [productId]);
 
   if (!product) {
     return (
@@ -81,15 +140,12 @@ const ProductView = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
-      
-      
       <div className="container mx-auto px-4 py-8">
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-5">
+        <div className="space-y-10">
           {/* Image Gallery */}
           <div className="space-y-4">
             <div
-              className="rounded-lg overflow-hidden bg-muted shadow-card touch-pan-y h-64 sm:h-96 md:aspect-square"
+              className="rounded-lg overflow-hidden bg-muted shadow-card touch-pan-y h-72 sm:h-[28rem] md:h-[32rem]"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
@@ -106,7 +162,7 @@ const ProductView = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 overflow-x-auto pb-2">
               {product.images.map((image, index) => (
                 <button
                   key={index}
@@ -125,34 +181,38 @@ const ProductView = () => {
             </div>
           </div>
 
-          {/* Product Details */}
-          <div className="flex flex-col">
-            <div className="mb-2">
+          {/* Product Details below gallery */}
+          <div className="flex flex-col gap-6">
+            <div>
               <span className="text-m text-muted-foreground font-medium">
                 {product.category}
               </span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif font-bold mb-4">
+            <h1 className="text-2xl md:text-3xl font-serif font-bold">
               {product.name}
             </h1>
-            <div className="text-3xl font-bold text-primary mb-6">
+            <div className="text-3xl font-bold text-primary">
               Rs.{product.price.toFixed(2)}
             </div>
             
-            <div className="mb-8">
+            <div>
               <h2 className="text-xl font-semibold mb-3">Description</h2>
               <p className="text-muted-foreground leading-relaxed text-justify">
                 {product.description}
               </p>
             </div>
 
-            {/* Product Specifications (shown below description and above actions) */}
-            <div className="mb-6">
+            {/* Product Specifications */}
+            <div>
               <h3 className="text-lg font-semibold mb-2">Product Specifications</h3>
               <div className="text-sm text-muted-foreground space-y-1">
                 <div>
                   <span className="font-medium">Size: </span>
                   <span>{product.size ?? "—"}</span>
+                </div>
+                <div>
+                  <span className="font-medium">Weight: </span>
+                  <span>{product.weight ?? "—"}</span>
                 </div>
                 <div>
                   <span className="font-medium">Material: </span>
@@ -173,8 +233,8 @@ const ProductView = () => {
               </div>
             </div>
 
-            {/* Action Buttons: side-by-side on mobile and desktop; larger touch targets on mobile */}
-            <div className="flex flex-row flex-wrap gap-3 mt-auto">
+            {/* Action Buttons */}
+            <div className="flex flex-row flex-wrap gap-3">
               <Button
                 onClick={handleAddToCart}
                 className="flex-1 gap-2 h-10"
@@ -193,6 +253,65 @@ const ProductView = () => {
               </Button>
             </div>
           </div>
+
+          {/* Related Products Section */}
+          {relatedProducts.length > 0 && (
+            <div className="mt-12 pt-8 border-t border-border">
+              <h2 className="text-2xl md:text-3xl font-serif font-bold mb-5">
+                Related Products
+              </h2>
+              {/* Mobile: Horizontal scroll */}
+              <div className="sm:hidden overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+                <div className="flex gap-2 min-w-max">
+                  {relatedProducts.map((relatedProduct) => (
+                    <div key={relatedProduct.id} className="flex-shrink-0 w-40">
+                      <ProductCardMobile product={relatedProduct} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Desktop: Grid layout */}
+              <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                {relatedProducts.map((relatedProduct) => (
+                  <ProductCard key={relatedProduct.id} product={relatedProduct} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Other Products Section */}
+          {otherProducts.length > 0 && (
+            <div className="mt-3 pt-4 border-t border-border">
+              <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6">
+                Other Products
+              </h2>
+              {/* Mobile: Horizontal scroll */}
+              <div className="sm:hidden overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+                <div className="flex gap-2 min-w-max">
+                  {otherProducts.map((otherProduct) => (
+                    <div key={otherProduct.id} className="flex-shrink-0 w-40">
+                      <ProductCardMobile product={otherProduct} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Desktop: Grid layout - 2 rows of 10 products each */}
+              <div className="hidden sm:block">
+                {/* First row - 10 products */}
+                <div className="grid grid-cols-5 md:grid-cols-5 lg:grid-cols-10 gap-4 md:gap-6 mb-4 md:mb-6">
+                  {otherProducts.slice(0, 10).map((otherProduct) => (
+                    <ProductCard key={otherProduct.id} product={otherProduct} />
+                  ))}
+                </div>
+                {/* Second row - 10 products */}
+                <div className="grid grid-cols-5 md:grid-cols-5 lg:grid-cols-10 gap-4 md:gap-6">
+                  {otherProducts.slice(10, 20).map((otherProduct) => (
+                    <ProductCard key={otherProduct.id} product={otherProduct} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

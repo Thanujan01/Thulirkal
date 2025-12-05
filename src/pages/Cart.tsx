@@ -1,17 +1,43 @@
 import { Trash2, Plus, Minus, ShoppingBag, AlertCircle } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useCart } from "@/hooks/useCart";
 import { Link, useNavigate } from "react-router-dom";
 import { getWhatsAppLinkForCart } from "@/lib/cart";
-import { CART_CONFIG } from "@/config/constants";
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, cartTotal } = useCart();
+  const { cart, removeFromCart, updateQuantity } = useCart();
   const navigate = useNavigate();
   const [showClearConfirm, setShowClearConfirm] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    setSelectedIds((prev) => {
+      const cartIds = cart.map((item) => item.id);
+      const preserved = prev.filter((id) => cartIds.includes(id));
+      const newOnes = cartIds.filter((id) => !prev.includes(id));
+      return [...preserved, ...newOnes];
+    });
+  }, [cart]);
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
+    );
+  };
+
+  const selectedItems = cart.filter((item) => selectedIds.includes(item.id));
+  const selectedSubtotal = selectedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const selectedItemCount = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
+  const deliveryFee = selectedItems.length
+    ? Math.max(...selectedItems.map((item) => item.deliveryFee ?? 0))
+    : 0;
+  const grandTotal = selectedItems.length ? selectedSubtotal + deliveryFee : 0;
+  const hasSelection = selectedItems.length > 0;
+  const truncateName = (name: string) => (name.length > 8 ? `${name.slice(0, 8)}...` : name);
 
   const handleClearCart = () => {
     cart.forEach((item) => removeFromCart(item.id));
@@ -23,7 +49,7 @@ const Cart = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <div className="container mx-auto px-4 py-16 text-center">
-          <ShoppingBag className="h-24 w-24 mx-auto text-muted-foreground mb-6" />
+          <ShoppingBag className="h-24 w-24 mx-auto text-muted-foreground mb-5" />
           <h1 className="text-3xl font-serif font-bold mb-4">Your Cart is Empty</h1>
           <p className="text-muted-foreground mb-8">
             Start adding some beautiful handmade products to your cart!
@@ -45,87 +71,98 @@ const Cart = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <div className="container mx-auto px-4 py-8 overflow-x-hidden">
-        <h1 className="text-3xl md:text-4xl font-serif font-bold mb-8">Shopping Cart</h1>
+      <div className="container mx-auto px-2 py-8 overflow-x-hidden">
+        <h1 className="text-3xl md:text-4xl font-serif font-bold mb-7">Shopping Cart</h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {/* Cart Items */}
-          <div className="lg:col-span-2 space-y-4">
+          <div className="lg:col-span-2 space-y-2">
             {cart.map((item) => (
               <Card key={item.id} className="shadow-card">
                 <CardContent className="p-4">
-                  <div className="flex gap-4 items-start">
-                    {/* Product Image */}
-                    <Link to={`/product/${item.id}`} className="flex-shrink-0">
-                      <img
-                        src={item.images[0]}
-                        alt={item.name}
-                        className="w-24 h-24 object-cover rounded-lg hover:opacity-80 transition-opacity max-w-full"
-                      />
-                    </Link>
-
-                    {/* Product Details */}
-                    <div className="flex-1 min-w-0">
-                      <Link to={`/product/${item.id}`}>
-                        <h3 className="font-semibold text-lg mb-1 hover:text-primary transition-colors truncate">
-                          {item.name}
-                        </h3>
+                  <div className="flex gap-2 items-start">
+                    <Checkbox
+                      checked={selectedIds.includes(item.id)}
+                      onCheckedChange={() => toggleSelect(item.id)}
+                      className="mt-10 h-5 w-5 rounded-none"
+                    />
+                    <div className="flex gap-4 items-start flex-1">
+                      {/* Product Image */}
+                      <Link to={`/product/${item.id}`} className="flex-shrink-0">
+                        <img
+                          src={item.images[0]}
+                          alt={item.name}
+                          className="w-24 h-24 object-cover rounded-lg hover:opacity-80 transition-opacity max-w-full"
+                        />
                       </Link>
-                      <p className="text-sm text-muted-foreground mb-2">
-                        {item.category}
-                      </p>
-                      <p className="font-bold text-primary">Rs.{item.price.toFixed(2)}</p>
-                    </div>
 
-                    {/* Quantity Controls & Remove */}
-                    <div className="flex flex-col items-end justify-start gap-3 pt-0">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-destructive hover:text-destructive"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      {/* Product Details */}
+                      <div className="flex-1 min-w-0">
+                        <Link to={`/product/${item.id}`}>
+                          <h3
+                            className="font-semibold text-lg mb-1 hover:text-primary transition-colors truncate"
+                            title={item.name}
+                          >
+                            {truncateName(item.name)}
+                          </h3>
+                        </Link>
+                        <p className="text-sm text-muted-foreground mb-2">
+                          {item.category}
+                        </p>
+                        <p className="font-bold text-primary">Rs.{item.price.toFixed(2)}</p>
+                      </div>
 
-                      <div className="flex items-center gap-2">
+                      {/* Quantity Controls & Remove */}
+                      <div className="flex flex-col items-end justify-start gap-3 pt-0">
                         <Button
-                          variant="outline"
+                          variant="ghost"
                           size="icon"
-                          className={`h-8 w-8 ${item.quantity <= 1 ? "opacity-50 cursor-not-allowed" : ""}`}
-                          onClick={() => {
-                            if (item.quantity > 1) updateQuantity(item.id, item.quantity - 1);
-                          }}
-                          disabled={item.quantity <= 1}
+                          onClick={() => removeFromCart(item.id)}
+                          className="text-destructive hover:text-destructive"
                         >
-                          <Minus className="h-3 w-3" />
+                          <Trash2 className="h-4 w-4" />
                         </Button>
-                        <span className="w-8 text-center font-semibold">{item.quantity}</span>
-                        <Button
-                          variant="outline"
-                          size="icon"
-                          className="h-8 w-8"
-                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        >
-                          <Plus className="h-3 w-3" />
-                        </Button>
+
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className={`h-8 w-8 ${item.quantity <= 1 ? "opacity-50 cursor-not-allowed" : ""}`}
+                            onClick={() => {
+                              if (item.quantity > 1) updateQuantity(item.id, item.quantity - 1);
+                            }}
+                            disabled={item.quantity <= 1}
+                          >
+                            <Minus className="h-3 w-3" />
+                          </Button>
+                          <span className="w-8 text-center font-semibold">{item.quantity}</span>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-8 w-8"
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          >
+                            <Plus className="h-3 w-3" />
+                          </Button>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </CardContent>
               </Card>
             ))}
-            
+
             {/* Clear Button */}
             <div className="flex justify-end mt-6">
               <Button
                 variant="outline"
-                className="text-destructive hover:text-destructive"
+                className="bg-white text-destructive border border-black/30 shadow-sm hover:shadow-md hover:bg-white hover:text-destructive"
                 onClick={() => setShowClearConfirm(true)}
               >
                 Clear Cart
               </Button>
             </div>
+
           </div>
 
           {/* Cart Summary */}
@@ -137,42 +174,34 @@ const Cart = () => {
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between text-muted-foreground">
                     <span>Subtotal</span>
-                    <span>Rs.{cartTotal.toFixed(2)}</span>
+                    <span>{hasSelection ? `Rs.${selectedSubtotal.toFixed(2)}` : "—"}</span>
                   </div>
                   <div className="flex justify-between text-muted-foreground">
                     <span>Items</span>
-                    <span>{cart.reduce((sum, item) => sum + item.quantity, 0)}</span>
+                    <span>{hasSelection ? selectedItemCount : 0}</span>
                   </div>
                   <div className="flex justify-between text-muted-foreground">
                     <span>Delivery Fee</span>
-                    <span>
-                      Rs.{(() => {
-                        // Determine delivery fee same as WA builder logic
-                        if (cart.length > 1) return (CART_CONFIG.MULTI_ITEM_DELIVERY_FEE).toFixed(2);
-                        if (cart.length === 1) return ((cart[0].deliveryFee ?? 0)).toFixed(2);
-                        return (0).toFixed(2);
-                      })()}
-                    </span>
+                    <span>{hasSelection ? `Rs.${deliveryFee.toFixed(2)}` : "—"}</span>
                   </div>
                   <div className="border-t border-border pt-3 flex justify-between text-xl font-bold">
                     <span>Grand Total</span>
                     <span className="text-primary">
-                      Rs.{(() => {
-                        const delivery = cart.length > 1 ? CART_CONFIG.MULTI_ITEM_DELIVERY_FEE : (cart.length === 1 ? (cart[0].deliveryFee ?? 0) : 0);
-                        return (cartTotal + delivery).toFixed(2);
-                      })()}
+                      {hasSelection ? `Rs.${grandTotal.toFixed(2)}` : "—"}
                     </span>
                   </div>
-                  
+
                 </div>
 
                 <div className="mt-3">
                   <Button
                     className="w-full bg-green-500 hover:bg-green-600 text-white"
                     size="lg"
+                    disabled={!hasSelection}
                     onClick={() => {
+                      if (!hasSelection) return;
                       const baseUrl = window.location.origin;
-                      const wa = getWhatsAppLinkForCart(cart, baseUrl);
+                      const wa = getWhatsAppLinkForCart(selectedItems, baseUrl);
                       window.open(wa, "_blank");
                     }}
                   >
@@ -183,8 +212,8 @@ const Cart = () => {
                 {/* Back to Home Button in Summary */}
                 <div className="mt-6 pt-6 border-t border-border">
                   <Link to="/">
-                    <Button 
-                      variant="ghost" 
+                    <Button
+                      variant="ghost"
                       className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
                     >
                       Back to Home

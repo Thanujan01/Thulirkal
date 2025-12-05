@@ -135,13 +135,10 @@ export const getWhatsAppLinkForCart = (
     lines.push("");
   });
   
-  // Determine delivery fee: if more than one distinct product, fixed fee. If only one distinct product, use that product's deliveryFee (admin-set).
-  let deliveryFee = 0;
-  if (cart.length > 1) {
-    deliveryFee = CART_CONFIG.MULTI_ITEM_DELIVERY_FEE;
-  } else if (cart.length === 1) {
-    deliveryFee = cart[0].deliveryFee != null ? cart[0].deliveryFee : 0;
-  }
+  // Determine delivery fee: highest delivery fee among selected items
+  const deliveryFee = cart.length
+    ? Math.max(...cart.map((item) => (item.deliveryFee != null ? item.deliveryFee : 0)))
+    : 0;
 
   const subtotalNum = getCartTotal(cart);
   const grandTotal = (subtotalNum + deliveryFee).toFixed(2);

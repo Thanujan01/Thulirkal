@@ -17,6 +17,7 @@ export const photoFrames: Product[] = [
     ,
     sellerId: "SE020",
     size: "5x7 inch",
+    weight: "450 g",
     material: "Wood",
     customizable: false,
     deliveryFee: 120
@@ -37,6 +38,7 @@ export const photoFrames: Product[] = [
     ,
     sellerId: "SE021",
     size: "6x8 inch",
+    weight: "380 g",
     material: "Wood / Cotton Macrame",
     customizable: true,
     deliveryFee: 150
@@ -57,6 +59,7 @@ export const photoFrames: Product[] = [
     ,
     sellerId: "SE022",
     size: "4x6 inch",
+    weight: "420 g",
     material: "Resin / Wood",
     customizable: false,
     deliveryFee: 130
@@ -77,6 +80,7 @@ export const photoFrames: Product[] = [
     ,
     sellerId: "SE023",
     size: "Multiple (4 x 4x6 inch)",
+    weight: "850 g",
     material: "Wood",
     customizable: false,
     deliveryFee: 200

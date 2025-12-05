@@ -18,6 +18,65 @@ const Index = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const categoryMenuRef = useRef<HTMLDivElement | null>(null);
+  const shuffledProductsRef = useRef<Product[]>([]);
+
+  // Home page refresh control: only refresh after 10 minutes, manual refresh, or browser reopen
+  useEffect(() => {
+    const REFRESH_INTERVAL = 10 * 60 * 1000; // 10 minutes in milliseconds
+    const STORAGE_KEY = "homePageLastRefresh";
+    const SHUFFLED_PRODUCTS_KEY = "homePageShuffledProducts";
+    
+    const checkRefresh = () => {
+      const lastRefresh = localStorage.getItem(STORAGE_KEY);
+      const cachedShuffled = localStorage.getItem(SHUFFLED_PRODUCTS_KEY);
+      const now = Date.now();
+      
+      if (!lastRefresh || !cachedShuffled) {
+        // First visit or browser reopened - shuffle products
+        const shuffled = [...getAllProducts()].sort(() => Math.random() - 0.5);
+        shuffledProductsRef.current = shuffled;
+        localStorage.setItem(STORAGE_KEY, now.toString());
+        localStorage.setItem(SHUFFLED_PRODUCTS_KEY, JSON.stringify(shuffled));
+        return;
+      }
+      
+      const timeSinceLastRefresh = now - parseInt(lastRefresh, 10);
+      
+      if (timeSinceLastRefresh >= REFRESH_INTERVAL) {
+        // 10 minutes have passed - reshuffle
+        const shuffled = [...getAllProducts()].sort(() => Math.random() - 0.5);
+        shuffledProductsRef.current = shuffled;
+        localStorage.setItem(STORAGE_KEY, now.toString());
+        localStorage.setItem(SHUFFLED_PRODUCTS_KEY, JSON.stringify(shuffled));
+      } else {
+        // Use cached shuffled products
+        try {
+          const parsed = JSON.parse(cachedShuffled);
+          if (Array.isArray(parsed)) {
+            shuffledProductsRef.current = parsed;
+          }
+        } catch (e) {
+          // If parsing fails, reshuffle
+          const shuffled = [...getAllProducts()].sort(() => Math.random() - 0.5);
+          shuffledProductsRef.current = shuffled;
+          localStorage.setItem(SHUFFLED_PRODUCTS_KEY, JSON.stringify(shuffled));
+        }
+      }
+    };
+    
+    checkRefresh();
+    
+    // Listen for manual refresh (F5, Ctrl+R, etc.)
+    const handleBeforeUnload = () => {
+      localStorage.setItem(STORAGE_KEY, Date.now().toString());
+    };
+    
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   // Initialize search from URL query `q` and keep it synced when URL changes
   useEffect(() => {
@@ -52,9 +111,13 @@ const Index = () => {
   // Get all products
   const allProducts: Product[] = useMemo(() => getAllProducts(), []);
 
-  // Shuffle products for random display
+  // Use cached shuffled products (refreshed based on time/conditions)
   const shuffledProducts = useMemo(() => {
-    return [...allProducts].sort(() => Math.random() - 0.5);
+    if (shuffledProductsRef.current.length === 0) {
+      // Fallback: shuffle if ref is empty
+      return [...allProducts].sort(() => Math.random() - 0.5);
+    }
+    return shuffledProductsRef.current;
   }, [allProducts]);
 
   // Filter and rank products based on search

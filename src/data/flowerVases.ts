@@ -17,6 +17,7 @@ export const flowerVases: Product[] = [
     ,
     sellerId: "SE012",
     size: "25 cm",
+    weight: "650 g",
     material: "Ceramic",
     customizable: false,
     deliveryFee: 200
@@ -37,6 +38,7 @@ export const flowerVases: Product[] = [
     ,
     sellerId: "SE013",
     size: "28 cm",
+    weight: "1.2 kg",
     material: "Concrete",
     customizable: false,
     deliveryFee: 250
@@ -57,6 +59,7 @@ export const flowerVases: Product[] = [
     ,
     sellerId: "SE014",
     size: "20 cm",
+    weight: "500 g",
     material: "Glass",
     customizable: false,
     deliveryFee: 180
@@ -77,6 +80,7 @@ export const flowerVases: Product[] = [
     ,
     sellerId: "SE015",
     size: "22 cm",
+    weight: "750 g",
     material: "Terracotta",
     customizable: true,
     deliveryFee: 220

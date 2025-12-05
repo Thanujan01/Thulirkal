@@ -17,6 +17,7 @@ export const resinArts: Product[] = [
     ,
     sellerId: "SE008",
     size: "Set of 4 (approx 10cm each)",
+    weight: "450 g",
     material: "Epoxy Resin",
     customizable: false,
     deliveryFee: 140
@@ -37,6 +38,7 @@ export const resinArts: Product[] = [
     ,
     sellerId: "SE009",
     size: "30x20 cm",
+    weight: "900 g",
     material: "Epoxy Resin / pigments",
     customizable: true,
     deliveryFee: 220
@@ -57,6 +59,7 @@ export const resinArts: Product[] = [
     ,
     sellerId: "SE010",
     size: "15 x 4 cm",
+    weight: "30 g",
     material: "Epoxy Resin / Pressed flowers",
     customizable: false,
     deliveryFee: 90
@@ -77,6 +80,7 @@ export const resinArts: Product[] = [
     ,
     sellerId: "SE011",
     size: "20 x 10 cm",
+    weight: "350 g",
     material: "Epoxy Resin",
     customizable: false,
     deliveryFee: 160

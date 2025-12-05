@@ -25,12 +25,17 @@ const Jewelries = () => {
 
   const allProducts: Product[] = useMemo(() => getProductsByCategory(CATEGORIES.JEWELRIES.slug), []);
 
+  // Shuffle products for random display (only when not searching)
+  const shuffledProducts = useMemo(() => {
+    return [...allProducts].sort(() => Math.random() - 0.5);
+  }, [allProducts]);
+
   const filteredProducts = useMemo(() => {
-    if (!searchQuery.trim()) return allProducts;
+    if (!searchQuery.trim()) return shuffledProducts;
     
     // Use search utility to get ranked results (best matches first)
-    return searchProducts(allProducts, searchQuery);
-  }, [searchQuery, allProducts]);
+    return searchProducts(shuffledProducts, searchQuery);
+  }, [searchQuery, shuffledProducts]);
 
   return (
     <div className="min-h-screen bg-background">
