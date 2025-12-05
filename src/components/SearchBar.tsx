@@ -1,23 +1,57 @@
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
-  onSearch?: (value: string) => void;
+  onSearch?: (value: string, seed?: number) => void; // Add seed parameter
   placeholder?: string;
+  searchSeed?: number; // Optional seed for random ordering
 }
 
-export const SearchBar = ({ value, onChange, onSearch, placeholder = "Search products..." }: SearchBarProps) => {
+export const SearchBar = ({ 
+  value, 
+  onChange, 
+  onSearch, 
+  placeholder = "Search products...",
+  searchSeed
+}: SearchBarProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const [currentSeed, setCurrentSeed] = useState<number | undefined>(searchSeed);
+
+  // Generate or use a seed for random ordering
+  const getSearchSeed = () => {
+    // If seed is provided, use it
+    if (searchSeed !== undefined) return searchSeed;
+    
+    // If we already have a seed for this session, use it
+    if (currentSeed !== undefined) return currentSeed;
+    
+    // Generate a new seed based on current time
+    const newSeed = Date.now();
+    setCurrentSeed(newSeed);
+    return newSeed;
+  };
 
   const handleSearch = () => {
-    if (onSearch) onSearch(value);
+    if (onSearch) {
+      const seed = getSearchSeed();
+      onSearch(value, seed); // Pass the seed along with search query
+    }
     // remove focus so the bar doesn't stay 'held'
     if (inputRef.current) inputRef.current.blur();
   };
+
+  // Reset seed when search query changes
+  useEffect(() => {
+    if (value) {
+      // Generate a new seed for new search queries
+      const newSeed = Date.now();
+      setCurrentSeed(newSeed);
+    }
+  }, [value]);
 
   return (
     <div className="w-full max-w-full mx-auto py-1 px-1 sm:px-3">

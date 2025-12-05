@@ -9,7 +9,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br1_1.jpg",
       "/jewelleries/br1_2.jpg",
-      "/jewelleries/br1_2.jpg"
+      "/jewelleries/br1_2.jpg",
+      "/jewelleries/br_B.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -30,7 +31,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br2_1.jpg",
       "/jewelleries/br2_2.jpg",
-      "/jewelleries/br2_3.jpg"
+      "/jewelleries/br2_3.jpg",
+      "/jewelleries/br_B.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -51,7 +53,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br3_1.jpg",
       "/jewelleries/br3_2.jpg",
-      "/jewelleries/br3_3.jpg"
+      "/jewelleries/br3_3.jpg",
+      "/jewelleries/br_B.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -72,7 +75,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br4_1.jpg",
       "/jewelleries/br4_2.jpg",
-      "/jewelleries/br4_3.jpg"
+      "/jewelleries/br4_3.jpg",
+      "/jewelleries/br_B.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -93,7 +97,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br5_1.jpg",
       "/jewelleries/br5_2.jpg",
-      "/jewelleries/br5_3.jpg"
+      "/jewelleries/br5_3.jpg",
+      "/jewelleries/br_B.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -114,7 +119,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br6_1.jpg",
       "/jewelleries/br6_2.jpg",
-      "/jewelleries/br6_3.jpg"
+      "/jewelleries/br6_3.jpg",
+      "/jewelleries/br_B.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -135,7 +141,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br7_1.jpg",
       "/jewelleries/br7_2.jpg",
-      "/jewelleries/br7_3.jpg"
+      "/jewelleries/br7_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -156,7 +163,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br8_1.jpg",
       "/jewelleries/br8_2.jpg",
-      "/jewelleries/br8_3.jpg"
+      "/jewelleries/br8_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -177,7 +185,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br9_1.jpg",
       "/jewelleries/br9_2.jpg",
-      "/jewelleries/br9_3.jpg"
+      "/jewelleries/br9_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -198,7 +207,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br10_1.jpg",
       "/jewelleries/br10_2.jpg",
-      "/jewelleries/br10_3.jpg"
+      "/jewelleries/br10_3.jpg",
+      "/jewelleries/br_B.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -219,7 +229,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br11_1.jpg",
       "/jewelleries/br11_2.jpg",
-      "/jewelleries/br11_3.jpg"
+      "/jewelleries/br11_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -240,7 +251,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br12_1.jpg",
       "/jewelleries/br12_2.jpg",
-      "/jewelleries/br12_3.jpg"
+      "/jewelleries/br12_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -261,7 +273,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br13_1.jpg",
       "/jewelleries/br13_2.jpg",
-      "/jewelleries/br13_3.jpg"
+      "/jewelleries/br13_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -282,7 +295,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br14_1.jpg",
       "/jewelleries/br14_2.jpg",
-      "/jewelleries/br14_3.jpg"
+      "/jewelleries/br14_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -303,7 +317,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br15_1.jpg",
       "/jewelleries/br15_2.jpg",
-      "/jewelleries/br15_3.jpg"
+      "/jewelleries/br15_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -324,7 +339,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br16_1.jpg",
       "/jewelleries/br16_2.jpg",
-      "/jewelleries/br16_3.jpg"
+      "/jewelleries/br16_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -345,7 +361,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br17_1.jpg",
       "/jewelleries/br17_2.jpg",
-      "/jewelleries/br17_3.jpg"
+      "/jewelleries/br17_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -366,7 +383,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br18_1.jpg",
       "/jewelleries/br18_2.jpg",
-      "/jewelleries/br18_3.jpg"
+      "/jewelleries/br18_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -387,7 +405,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br19_1.jpg",
       "/jewelleries/br19_2.jpg",
-      "/jewelleries/br19_3.jpg"
+      "/jewelleries/br19_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
@@ -408,7 +427,8 @@ export const jewelries: Product[] = [
     images: [
       "/jewelleries/br20_1.jpg",
       "/jewelleries/br20_2.jpg",
-      "/jewelleries/br20_3.jpg"
+      "/jewelleries/br20_3.jpg",
+      "/jewelleries/br_A.jpg"
     ],
     category: "Jewelries",
     sellerId: "SE002",
