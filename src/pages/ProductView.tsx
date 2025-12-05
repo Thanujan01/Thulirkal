@@ -43,7 +43,7 @@ const ProductView = () => {
     return categoryProducts
       .filter((p) => p.id !== product.id)
       .sort(() => Math.random() - 0.5)
-      .slice(0, 8); // Show up to 8 related products
+      .slice(0,10); // Show up to 8 related products
   }, [product]);
 
   // Get other products (20 random products excluding current and related)
@@ -137,15 +137,41 @@ const ProductView = () => {
     touchEndX.current = null;
   };
 
+  // ===== SPACING VARIABLES - ADJUST THESE VALUES AS NEEDED =====
+  const SECTION_SPACING = {
+    // Vertical spacing between main sections (in Tailwind classes)
+    mainToRelated: "mt-4",        // Reduced from mt-12 (3rem to 1rem) - Gap between main product details and related products
+    relatedToOther: "mt-4",       // Reduced from mt-8 (2rem to 1rem) - Gap between related products and other products
+    
+    // Horizontal spacing for product grids
+    gridGap: {
+      mobile: "gap-1.5",           // Gap between product cards on mobile
+      desktop: "gap-4 md:gap-6", // Gap between product cards on desktop
+    },
+    
+    // Padding within sections
+    sectionPadding: {
+      top: "pt-4",               // Reduced from pt-8 (2rem to 1rem) - Top padding for sections
+      bottom: "pb-0",            // Bottom padding for sections
+    },
+    
+    // Margin for headings
+    headingMargin: {
+      related: "mb-4",           // Reduced from mb-6 (1.5rem to 1rem) - Margin below "Related Products" heading
+      other: "mb-3",             // Reduced from mb-8 (2rem to 1rem) - Margin below "Other Products" heading
+    }
+  };
+  // ===== END SPACING VARIABLES =====
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="container mx-auto px-4 py-8">
-        <div className="space-y-10">
+      <div className="container mx-auto px-2.5 py-2">
+        <div className="space-y-0.5">
           {/* Image Gallery */}
-          <div className="space-y-4">
+          <div className="space-y-2">
             <div
-              className="rounded-lg overflow-hidden bg-muted shadow-card touch-pan-y h-72 sm:h-[28rem] md:h-[32rem]"
+              className="rounded-lg overflow-hidden bg-muted shadow-card touch-pan-y h-71 sm:h-[28rem] md:h-[32rem]"
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
@@ -162,7 +188,7 @@ const ProductView = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-2 overflow-x-auto pb-2">
+            <div className="flex items-center gap-2 overflow-x-auto pb-1">
               {product.images.map((image, index) => (
                 <button
                   key={index}
@@ -182,7 +208,7 @@ const ProductView = () => {
           </div>
 
           {/* Product Details below gallery */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
             <div>
               <span className="text-m text-muted-foreground font-medium">
                 {product.category}
@@ -196,7 +222,7 @@ const ProductView = () => {
             </div>
             
             <div>
-              <h2 className="text-xl font-semibold mb-3">Description</h2>
+              <h2 className="text-xl font-semibold mb-2.5">Description</h2>
               <p className="text-muted-foreground leading-relaxed text-justify">
                 {product.description}
               </p>
@@ -256,13 +282,13 @@ const ProductView = () => {
 
           {/* Related Products Section */}
           {relatedProducts.length > 0 && (
-            <div className="mt-12 pt-8 border-t border-border">
-              <h2 className="text-2xl md:text-3xl font-serif font-bold mb-5">
+            <div className={`${SECTION_SPACING.mainToRelated} ${SECTION_SPACING.sectionPadding.top} ${SECTION_SPACING.sectionPadding.bottom} border-t border-border`}>
+              <h2 className={`text-2xl md:text-3xl font-serif font-bold ${SECTION_SPACING.headingMargin.related}`}>
                 Related Products
               </h2>
               {/* Mobile: Horizontal scroll */}
-              <div className="sm:hidden overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-                <div className="flex gap-2 min-w-max">
+              <div className="sm:hidden overflow-x-auto pb-2 px-0 scrollbar-hide">
+                <div className={`flex ${SECTION_SPACING.gridGap.mobile} min-w-max`}>
                   {relatedProducts.map((relatedProduct) => (
                     <div key={relatedProduct.id} className="flex-shrink-0 w-40">
                       <ProductCardMobile product={relatedProduct} />
@@ -271,7 +297,7 @@ const ProductView = () => {
                 </div>
               </div>
               {/* Desktop: Grid layout */}
-              <div className="hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+              <div className={`hidden sm:grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ${SECTION_SPACING.gridGap.desktop}`}>
                 {relatedProducts.map((relatedProduct) => (
                   <ProductCard key={relatedProduct.id} product={relatedProduct} />
                 ))}
@@ -281,30 +307,46 @@ const ProductView = () => {
 
           {/* Other Products Section */}
           {otherProducts.length > 0 && (
-            <div className="mt-3 pt-4 border-t border-border">
-              <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6">
+            <div className={`${SECTION_SPACING.relatedToOther} ${SECTION_SPACING.sectionPadding.top} ${SECTION_SPACING.sectionPadding.bottom} border-t border-border`}>
+              <h2 className={`text-2xl md:text-3xl font-serif font-bold ${SECTION_SPACING.headingMargin.other}`}>
                 Other Products
               </h2>
-              {/* Mobile: Horizontal scroll */}
-              <div className="sm:hidden overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
-                <div className="flex gap-2 min-w-max">
-                  {otherProducts.map((otherProduct) => (
-                    <div key={otherProduct.id} className="flex-shrink-0 w-40">
-                      <ProductCardMobile product={otherProduct} />
-                    </div>
-                  ))}
+              
+              {/* Mobile: Two horizontal scroll sections - First 10 products */}
+              <div className="sm:hidden">
+                {/* First scroll section - First 10 products */}
+                <div className="overflow-x-auto pb-2 px-0 scrollbar-hide mb-3">
+                  <div className={`flex ${SECTION_SPACING.gridGap.mobile} min-w-max`}>
+                    {otherProducts.slice(0, 10).map((otherProduct) => (
+                      <div key={otherProduct.id} className="flex-shrink-0 w-40">
+                        <ProductCardMobile product={otherProduct} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Second scroll section - Next 10 products */}
+                <div className="overflow-x-auto pb-4 px-0 scrollbar-hide">
+                  <div className={`flex ${SECTION_SPACING.gridGap.mobile} min-w-max`}>
+                    {otherProducts.slice(10, 20).map((otherProduct) => (
+                      <div key={otherProduct.id} className="flex-shrink-0 w-40">
+                        <ProductCardMobile product={otherProduct} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
+              
               {/* Desktop: Grid layout - 2 rows of 10 products each */}
               <div className="hidden sm:block">
                 {/* First row - 10 products */}
-                <div className="grid grid-cols-5 md:grid-cols-5 lg:grid-cols-10 gap-4 md:gap-6 mb-4 md:mb-6">
+                <div className={`grid grid-cols-5 md:grid-cols-5 lg:grid-cols-10 ${SECTION_SPACING.gridGap.desktop} mb-4 md:mb-6`}>
                   {otherProducts.slice(0, 10).map((otherProduct) => (
                     <ProductCard key={otherProduct.id} product={otherProduct} />
                   ))}
                 </div>
                 {/* Second row - 10 products */}
-                <div className="grid grid-cols-5 md:grid-cols-5 lg:grid-cols-10 gap-4 md:gap-6">
+                <div className={`grid grid-cols-5 md:grid-cols-5 lg:grid-cols-10 ${SECTION_SPACING.gridGap.desktop}`}>
                   {otherProducts.slice(10, 20).map((otherProduct) => (
                     <ProductCard key={otherProduct.id} product={otherProduct} />
                   ))}
