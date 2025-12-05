@@ -43,7 +43,7 @@ const ProductView = () => {
     return categoryProducts
       .filter((p) => p.id !== product.id)
       .sort(() => Math.random() - 0.5)
-      .slice(0,10); // Show up to 8 related products
+      .slice(0,10); // Show up to 10 related products
   }, [product]);
 
   // Get other products (20 random products excluding current and related)
@@ -286,23 +286,12 @@ const ProductView = () => {
               <h2 className={`text-2xl md:text-3xl font-serif font-bold ${SECTION_SPACING.headingMargin.related}`}>
                 Related Products
               </h2>
-              {/* Mobile: Horizontal scroll */}
+              {/* Mobile: Horizontal scroll - USING ProductCardMobile COMPONENT */}
               <div className="sm:hidden overflow-x-auto pb-2 px-0 scrollbar-hide">
                 <div className={`flex ${SECTION_SPACING.gridGap.mobile} min-w-max`}>
                   {relatedProducts.map((relatedProduct) => (
                     <div key={relatedProduct.id} className="flex-shrink-0 w-40">
-                      <div className="relative group">
-                        <div className="relative aspect-[3/2] overflow-hidden rounded-lg bg-muted mb-2">
-                          <img
-                            src={relatedProduct.images[0]}
-                            alt={relatedProduct.name}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                            loading="lazy"
-                          />
-                        </div>
-                        <h3 className="font-semibold text-sm truncate">{relatedProduct.name}</h3>
-                        <p className="text-primary font-bold">Rs.{relatedProduct.price.toFixed(2)}</p>
-                      </div>
+                      <ProductCardMobile product={relatedProduct} />
                     </div>
                   ))}
                 </div>
@@ -323,25 +312,14 @@ const ProductView = () => {
                 Other Products
               </h2>
               
-              {/* Mobile: Two horizontal scroll sections */}
+              {/* Mobile: Two horizontal scroll sections - USING ProductCardMobile COMPONENT */}
               <div className="sm:hidden">
                 {/* First scroll section - First 10 products */}
                 <div className="overflow-x-auto pb-2 px-0 scrollbar-hide mb-3">
                   <div className={`flex ${SECTION_SPACING.gridGap.mobile} min-w-max`}>
                     {otherProducts.slice(0, 10).map((otherProduct) => (
                       <div key={otherProduct.id} className="flex-shrink-0 w-40">
-                        <div className="relative group">
-                          <div className="relative aspect-[3/2] overflow-hidden rounded-lg bg-muted mb-2">
-                            <img
-                              src={otherProduct.images[0]}
-                              alt={otherProduct.name}
-                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                              loading="lazy"
-                            />
-                          </div>
-                          <h3 className="font-semibold text-sm truncate">{otherProduct.name}</h3>
-                          <p className="text-primary font-bold">Rs.{otherProduct.price.toFixed(2)}</p>
-                        </div>
+                        <ProductCardMobile product={otherProduct} />
                       </div>
                     ))}
                   </div>
@@ -352,18 +330,7 @@ const ProductView = () => {
                   <div className={`flex ${SECTION_SPACING.gridGap.mobile} min-w-max`}>
                     {otherProducts.slice(10, 20).map((otherProduct) => (
                       <div key={otherProduct.id} className="flex-shrink-0 w-40">
-                        <div className="relative group">
-                          <div className="relative aspect-[3/2] overflow-hidden rounded-lg bg-muted mb-2">
-                            <img
-                              src={otherProduct.images[0]}
-                              alt={otherProduct.name}
-                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                              loading="lazy"
-                            />
-                          </div>
-                          <h3 className="font-semibold text-sm truncate">{otherProduct.name}</h3>
-                          <p className="text-primary font-bold">Rs.{otherProduct.price.toFixed(2)}</p>
-                        </div>
+                        <ProductCardMobile product={otherProduct} />
                       </div>
                     ))}
                   </div>

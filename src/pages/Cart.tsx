@@ -58,7 +58,12 @@ const Cart = () => {
             <Link to="/">
               <Button size="lg">Browse Products</Button>
             </Link>
-            <Button variant="ghost" onClick={() => navigate(-1)} className="bg-accent text-accent-foreground">
+            <Button 
+              size="lg" 
+              variant="ghost" 
+              onClick={() => navigate(-1)} 
+              className="bg-accent text-accent-foreground"
+            >
               Back to Home
             </Button>
           </div>
