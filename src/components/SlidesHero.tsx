@@ -22,8 +22,8 @@ export const SlidesHero = () => {
     <section className="relative bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 pt-1 pb-0 md:pt-1 md:pb-0">
 
       <div className="container mx-auto px-1">
-        <div className="w-full max-w-4xl mx-auto">
-          <div className="aspect-[16/9] rounded-xl overflow-hidden bg-card border border-border shadow-card">
+        <div className="w-full mx-auto">
+          <div className="aspect-[3/1] rounded-xl overflow-hidden bg-card border border-border shadow-card">
             <div
               className="flex w-full h-full transition-transform duration-700 ease-in-out"
               style={{ transform: `translateX(-${index * 100}%)` }}

@@ -11,12 +11,17 @@ import { ProductCard } from "@/components/ProductCard";
 import { ProductCardMobile } from "@/components/ProductCardMobile";
 import { Product } from "@/types/product";
 
+const CONFIG = {
+  PRODUCT_NAME_SIZE: "18px", // Manually adjust viewed product name size here
+  PRODUCT_PRICE_SIZE: "24px", // Manually adjust viewed product price size here
+};
+
 const ProductView = () => {
   const { productId } = useParams<{ productId: string }>();
   const navigate = useNavigate();
   const location = useLocation();
   const isInitialMount = useRef(true);
-  
+
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
@@ -27,7 +32,7 @@ const ProductView = () => {
   // Get related products (same category, excluding current product)
   const relatedProducts = useMemo(() => {
     if (!product) return [];
-    
+
     // Map category name to slug
     const categorySlugMap: Record<string, string> = {
       "Jewelries": "jewelries",
@@ -36,23 +41,23 @@ const ProductView = () => {
       "Hand Crafts": "hand-crafts",
       "Photo Frames": "photo-frames",
     };
-    
+
     const categorySlug = categorySlugMap[product.category] || product.category.toLowerCase().replace(/\s+/g, "-");
     const categoryProducts = getProductsByCategory(categorySlug);
-    
+
     return categoryProducts
       .filter((p) => p.id !== product.id)
       .sort(() => Math.random() - 0.5)
-      .slice(0,10); // Show up to 10 related products
+      .slice(0, 10); // Show up to 10 related products
   }, [product]);
 
   // Get other products (20 random products excluding current and related)
   const otherProducts = useMemo(() => {
     if (!product) return [];
-    
+
     const allProducts = getAllProducts();
     const excludeIds = [product.id, ...relatedProducts.map((p) => p.id)];
-    
+
     return allProducts
       .filter((p) => !excludeIds.includes(p.id))
       .sort(() => Math.random() - 0.5)
@@ -64,7 +69,7 @@ const ProductView = () => {
     // Check if this is a back navigation by comparing with previous productId
     const previousProductId = sessionStorage.getItem("lastViewedProductId");
     const isBackNavigation = previousProductId === productId && !isInitialMount.current;
-    
+
     if (isInitialMount.current) {
       // First load - scroll to top
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -142,19 +147,19 @@ const ProductView = () => {
     // Vertical spacing between main sections (in Tailwind classes)
     mainToRelated: "mt-4",        // Reduced from mt-12 (3rem to 1rem) - Gap between main product details and related products
     relatedToOther: "mt-4",       // Reduced from mt-8 (2rem to 1rem) - Gap between related products and other products
-    
+
     // Horizontal spacing for product grids
     gridGap: {
       mobile: "gap-1.5",           // Gap between product cards on mobile
       desktop: "gap-4 md:gap-6", // Gap between product cards on desktop
     },
-    
+
     // Padding within sections
     sectionPadding: {
       top: "pt-4",               // Reduced from pt-8 (2rem to 1rem) - Top padding for sections
       bottom: "pb-0",            // Bottom padding for sections
     },
-    
+
     // Margin for headings
     headingMargin: {
       related: "mb-4",           // Reduced from mb-6 (1.5rem to 1rem) - Margin below "Related Products" heading
@@ -193,9 +198,8 @@ const ProductView = () => {
                 <button
                   key={index}
                   onClick={() => changeImage(index)}
-                  className={`flex-shrink-0 w-16 sm:w-20 h-16 sm:h-20 rounded-lg overflow-hidden border-2 transition-transform hover:scale-105 ${
-                    selectedImageIndex === index ? "border-primary shadow-soft" : "border-border"
-                  }`}
+                  className={`flex-shrink-0 w-16 sm:w-20 h-16 sm:h-20 rounded-lg overflow-hidden border-2 transition-transform hover:scale-105 ${selectedImageIndex === index ? "border-primary shadow-soft" : "border-border"
+                    }`}
                 >
                   <img
                     src={image}
@@ -214,13 +218,19 @@ const ProductView = () => {
                 {product.category}
               </span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-serif font-bold">
+            <h1
+              className="font-serif font-bold"
+              style={{ fontSize: CONFIG.PRODUCT_NAME_SIZE }}
+            >
               {product.name}
             </h1>
-            <div className="text-3xl font-bold text-primary">
+            <div
+              className="font-bold text-primary"
+              style={{ fontSize: CONFIG.PRODUCT_PRICE_SIZE }}
+            >
               Rs.{product.price.toFixed(2)}
             </div>
-            
+
             <div>
               <h2 className="text-xl font-semibold mb-2.5">Description</h2>
               <p className="text-muted-foreground leading-relaxed text-justify">
@@ -311,7 +321,7 @@ const ProductView = () => {
               <h2 className={`text-2xl md:text-3xl font-serif font-bold ${SECTION_SPACING.headingMargin.other}`}>
                 Other Products
               </h2>
-              
+
               {/* Mobile: Two horizontal scroll sections - USING ProductCardMobile COMPONENT */}
               <div className="sm:hidden">
                 {/* First scroll section - First 10 products */}
@@ -324,7 +334,7 @@ const ProductView = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 {/* Second scroll section - Next 10 products */}
                 <div className="overflow-x-auto pb-4 px-0 scrollbar-hide">
                   <div className={`flex ${SECTION_SPACING.gridGap.mobile} min-w-max`}>
@@ -336,7 +346,7 @@ const ProductView = () => {
                   </div>
                 </div>
               </div>
-              
+
               {/* Desktop: Grid layout - 2 rows of 10 products each */}
               <div className="hidden sm:block">
                 {/* First row - 10 products */}

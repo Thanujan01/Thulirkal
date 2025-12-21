@@ -31,6 +31,7 @@ const CategoryPage = () => {
     [CATEGORIES.FLOWER_VASES.slug]: { products: getProductsByCategory(CATEGORIES.FLOWER_VASES.slug), title: CATEGORIES.FLOWER_VASES.title },
     [CATEGORIES.HAND_CRAFTS.slug]: { products: getProductsByCategory(CATEGORIES.HAND_CRAFTS.slug), title: CATEGORIES.HAND_CRAFTS.title },
     [CATEGORIES.PHOTO_FRAMES.slug]: { products: getProductsByCategory(CATEGORIES.PHOTO_FRAMES.slug), title: CATEGORIES.PHOTO_FRAMES.title },
+    [CATEGORIES.CLOTHS.slug]: { products: getProductsByCategory(CATEGORIES.CLOTHS.slug), title: CATEGORIES.CLOTHS.title },
   };
 
   const categoryData = categorySlug ? categoryMap[categorySlug] : null;
@@ -65,7 +66,7 @@ const CategoryPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
+
       {/* Category Header */}
       <section className="bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 py-12">
         <div className="container mx-auto px-4 text-center">
@@ -93,7 +94,7 @@ const CategoryPage = () => {
           <Button
             variant="ghost"
             className="bg-accent text-accent-foreground"
-            onClick={() => navigate('/') }
+            onClick={() => navigate('/')}
           >
             Back to Home
           </Button>

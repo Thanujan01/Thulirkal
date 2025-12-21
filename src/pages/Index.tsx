@@ -4,14 +4,30 @@ import { Navbar } from "@/components/Navbar";
 import { SearchBar } from "@/components/SearchBar";
 import { ProductGrid } from "@/components/ProductGrid";
 import { CategoryDropdown } from "@/components/CategoryDropdown";
+import { CategoryCarousel } from "@/components/CategoryCarousel";
 import { SlidesHero } from "@/components/SlidesHero";
 import { Product } from "@/types/product";
 import { getAllProducts } from "@/utils/products";
 import { searchProducts } from "@/utils/search";
-import { Facebook, Instagram, MessageCircle, ChevronDown } from "lucide-react";
+import { Facebook, Instagram, MessageCircle, ChevronDown, Menu } from "lucide-react";
 import { FaTiktok } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { SOCIAL_LINKS } from "@/config/constants";
+
+// Home Page Layout Configuration - Manually adjust for pixel-perfect alignment
+const LAYOUT_CONFIG = {
+  // Category & Social Bar Section Padding
+  SECTION_PADDING_TOP: "8px",    // Vertical padding at the top of the bar
+  SECTION_PADDING_BOTTOM: "8px", // Vertical padding at the bottom of the bar
+  SECTION_PADDING_LEFT: "8px",  // Horizontal padding on the left
+  SECTION_PADDING_RIGHT: "16px", // Horizontal padding on the right
+
+  // Category Button Specific Alignment
+  CATEGORY_BUTTON_MARGIN_LEFT: "0px", // Specifically moves the button from the left
+
+  // Spacing between Carousel and Products
+  PRODUCT_SECTION_MARGIN_TOP: "0px",  // Adjust the gap between carousel and products
+};
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -25,12 +41,12 @@ const Index = () => {
     const REFRESH_INTERVAL = 10 * 60 * 1000; // 10 minutes in milliseconds
     const STORAGE_KEY = "homePageLastRefresh";
     const SHUFFLED_PRODUCTS_KEY = "homePageShuffledProducts";
-    
+
     const checkRefresh = () => {
       const lastRefresh = localStorage.getItem(STORAGE_KEY);
       const cachedShuffled = localStorage.getItem(SHUFFLED_PRODUCTS_KEY);
       const now = Date.now();
-      
+
       if (!lastRefresh || !cachedShuffled) {
         // First visit or browser reopened - shuffle products
         const shuffled = [...getAllProducts()].sort(() => Math.random() - 0.5);
@@ -39,9 +55,9 @@ const Index = () => {
         localStorage.setItem(SHUFFLED_PRODUCTS_KEY, JSON.stringify(shuffled));
         return;
       }
-      
+
       const timeSinceLastRefresh = now - parseInt(lastRefresh, 10);
-      
+
       if (timeSinceLastRefresh >= REFRESH_INTERVAL) {
         // 10 minutes have passed - reshuffle
         const shuffled = [...getAllProducts()].sort(() => Math.random() - 0.5);
@@ -63,16 +79,16 @@ const Index = () => {
         }
       }
     };
-    
+
     checkRefresh();
-    
+
     // Listen for manual refresh (F5, Ctrl+R, etc.)
     const handleBeforeUnload = () => {
       localStorage.setItem(STORAGE_KEY, Date.now().toString());
     };
-    
+
     window.addEventListener("beforeunload", handleBeforeUnload);
-    
+
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
@@ -123,7 +139,7 @@ const Index = () => {
   // Filter and rank products based on search
   const filteredProducts = useMemo(() => {
     if (!searchQuery.trim()) return shuffledProducts;
-    
+
     // Use search utility to get ranked results (best matches first)
     return searchProducts(shuffledProducts, searchQuery);
   }, [searchQuery, shuffledProducts]);
@@ -131,7 +147,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
+
       {/* Hero Slides Section (text then product images slideshow) */}
       <SlidesHero />
 
@@ -140,17 +156,30 @@ const Index = () => {
 
       {/* Categories & Social Media Bar */}
       <div className="bg-card border-b border-border">
-        <div className="container mx-auto px-4 sm:px-4 py-2 flex items-center justify-between">
-          <div className="relative" ref={categoryMenuRef}>
+        <div
+          className="container mx-auto flex items-center justify-between"
+          style={{
+            paddingTop: LAYOUT_CONFIG.SECTION_PADDING_TOP,
+            paddingBottom: LAYOUT_CONFIG.SECTION_PADDING_BOTTOM,
+            paddingLeft: LAYOUT_CONFIG.SECTION_PADDING_LEFT,
+            paddingRight: LAYOUT_CONFIG.SECTION_PADDING_RIGHT,
+          }}
+        >
+          <div
+            className="relative"
+            ref={categoryMenuRef}
+            style={{ marginLeft: LAYOUT_CONFIG.CATEGORY_BUTTON_MARGIN_LEFT }}
+          >
             <Button
-              className="gap-2 font-bold text-white bg-amber-500 hover:bg-orange-300 border border-orange-600"
+              className="gap-2 bg-orange-600 hover:bg-orange-700 text-white rounded-full px-4 py-2 font-medium"
               onClick={() => setIsCategoryOpen(!isCategoryOpen)}
             >
-              Categories
+              <Menu className="h-4 w-4" />
+              All Categories
               <ChevronDown className="h-4 w-4" />
             </Button>
             {isCategoryOpen && (
-              <div className="absolute top-full left-0 mt-2 z-50 bg-background/80 backdrop-blur-md border border-border rounded-lg shadow-lg w-40">
+              <div className="absolute top-full left-0 mt-2 z-50 bg-background/80 backdrop-blur-md border border-border rounded-lg shadow-lg">
                 <CategoryDropdown mobile onLinkClick={() => setIsCategoryOpen(false)} />
               </div>
             )}
@@ -196,12 +225,16 @@ const Index = () => {
         </div>
       </div>
 
+      {/* Category Carousel */}
+      <CategoryCarousel />
+
       {/* Products Section */}
-      <section className="container mx-auto pb-12">
-        <h2 className="text-3xl font-serif font-bold text-center mb-5">
-          {searchQuery ? "Search Results" : ""}
-        </h2>
-        <ProductGrid 
+      <section
+        className="container mx-auto pb-12"
+        style={{ marginTop: LAYOUT_CONFIG.PRODUCT_SECTION_MARGIN_TOP }}
+      >
+
+        <ProductGrid
           products={filteredProducts}
           emptyMessage={searchQuery ? "No products match your search" : "No products available"}
         />

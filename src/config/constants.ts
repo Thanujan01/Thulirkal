@@ -39,5 +39,6 @@ export const CATEGORIES = {
   FLOWER_VASES: { slug: "flower-vases", title: "Flower Vases" },
   HAND_CRAFTS: { slug: "hand-crafts", title: "Hand Crafts" },
   PHOTO_FRAMES: { slug: "photo-frames", title: "Photo Frames" },
+  CLOTHS: { slug: "cloths", title: "Cloths" },
 } as const;
 

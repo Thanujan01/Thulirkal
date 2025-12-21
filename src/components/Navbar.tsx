@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { CategoryDropdown } from "./CategoryDropdown";
 import { useCart } from "@/hooks/useCart";
 
 export const Navbar = () => {
@@ -30,7 +29,6 @@ export const Navbar = () => {
             <Link to="/" className="text-foreground hover:text-primary transition-colors">
               Home
             </Link>
-            <CategoryDropdown />
             <Link to="/about" className="text-foreground hover:text-primary transition-colors">
               About Us
             </Link>

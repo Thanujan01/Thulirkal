@@ -21,7 +21,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br2",
@@ -43,7 +43,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br3",
@@ -65,7 +65,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br4",
@@ -87,7 +87,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br5",
@@ -109,7 +109,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br6",
@@ -131,7 +131,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br7",
@@ -153,7 +153,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br8",
@@ -175,7 +175,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br9",
@@ -197,7 +197,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br10",
@@ -219,7 +219,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br11",
@@ -241,7 +241,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br12",
@@ -263,7 +263,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br13",
@@ -285,7 +285,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br14",
@@ -307,7 +307,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br15",
@@ -329,7 +329,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br16",
@@ -351,7 +351,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br17",
@@ -373,7 +373,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br18",
@@ -395,7 +395,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br19",
@@ -417,7 +417,7 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
   },
   {
     id: "br20",
@@ -439,7 +439,46 @@ export const jewelries: Product[] = [
     weight: "22 g",
     material: "Vibrant crystal",
     customizable: true,
-    deliveryFee: 160 
+    deliveryFee: 160
+  },
+  {
+    id: "ra-026",
+    name: "Resin Pendant Chain - Elegant & Handcrafted, for Anniversaries, Birthdays, Weddings, and Romantic gifts",
+    price: 950.00,
+    description: "A beautifully handcrafted resin pendant chain designed with premium clear resin and elegant elements. Lightweight, durable, and perfect for everyday wear or gifting.",
+    rating: 4.8,
+    sold: 4,
+    images: [
+      "/resin/chain1_1.png"
+    ],
+    category: "Resin Arts"
+    ,
+    sellerId: "SE003",
+    size: "Small",
+    weight: "8 g",
+    material: "Epoxy Resin",
+    customizable: true,
+    deliveryFee: 140
+  },
+  {
+    id: "ra-027",
+    name: "Custom Resin Art Earrings - Modern & Unique for Anniversaries, Birthdays, Weddings, and Romantic gifts",
+    price: 950.00,
+    description: "Beautifully handcrafted resin earrings made with premium clear resin and artistic elements. Lightweight, stylish, and perfect for daily wear or gifting.",
+    rating: 4.8,
+    sold: 4,
+    images: [
+      "/resin/earing1_1.png",
+      "/resin/keychainset1_1.png"
+    ],
+    category: "Resin Arts"
+    ,
+    sellerId: "SE003",
+    size: "small",
+    weight: "8 g",
+    material: "Epoxy Resin",
+    customizable: true,
+    deliveryFee: 140
   }
 ];
 

@@ -21,9 +21,10 @@ export interface CartItem extends Product {
   quantity: number;
 }
 
-export type Category = 
+export type Category =
   | "Jewelries"
   | "Resin Arts"
   | "Flower Vases"
   | "Hand Crafts"
-  | "Photo Frames";
+  | "Photo Frames"
+  | "Cloths";

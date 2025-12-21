@@ -4,6 +4,10 @@ import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Product } from "@/types/product";
 
+const CONFIG = {
+  PRODUCT_NAME_SIZE: "16px", // Manually adjust product name size here
+};
+
 interface ProductCardProps {
   product: Product;
 }
@@ -32,15 +36,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             {product.images.map((_, index) => (
               <div
                 key={index}
-                className={`w-2 h-2 rounded-full transition-all ${
-                  index === currentImageIndex ? "bg-primary w-4" : "bg-white/60"
-                }`}
+                className={`w-2 h-2 rounded-full transition-all ${index === currentImageIndex ? "bg-primary w-4" : "bg-white/60"
+                  }`}
               />
             ))}
           </div>
         </div>
         <CardContent className="p-3">
-          <h3 className="font-sans font-medium text-base mb-1 line-clamp-1 group-hover:text-primary transition-colors">
+          <h3
+            className="font-sans font-medium mb-1 line-clamp-1 group-hover:text-primary transition-colors"
+            style={{ fontSize: CONFIG.PRODUCT_NAME_SIZE }}
+          >
             {product.name}
           </h3>
           <p className="text-lg font-bold text-primary">Rs.{product.price.toFixed(2)}</p>

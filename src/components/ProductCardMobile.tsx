@@ -4,13 +4,17 @@ import { Star } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Product } from "@/types/product";
 
+const CONFIG = {
+  PRODUCT_NAME_SIZE: "15px", // Manually adjust product name size here
+};
+
 interface ProductCardMobileProps {
   product: Product;
 }
 
 export const ProductCardMobile = ({ product }: ProductCardMobileProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const rating = product.rating ?? 4.5;
+  const rating = product.rating ?? 4.0;
   const sold = product.sold ?? 0;
 
   return (
@@ -26,8 +30,13 @@ export const ProductCardMobile = ({ product }: ProductCardMobileProps) => {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="px-3 py-2">
-          <h3 className="font-sans font-medium text-sm line-clamp-1">{product.name}</h3>
+        <div className="px-3 py-1">
+          <h3
+            className="font-sans font-medium line-clamp-1"
+            style={{ fontSize: CONFIG.PRODUCT_NAME_SIZE }}
+          >
+            {product.name}
+          </h3>
           <div className="mt-1">
             <div className="text-sm font-semibold text-primary">Rs.{product.price.toFixed(2)}</div>
             <div className="mt-1 flex items-center gap-3 text-xs text-muted-foreground">
