@@ -11,9 +11,11 @@ export const WHATSAPP_CONFIG = {
 
 // Social Media Links
 export const SOCIAL_LINKS = {
-  FACEBOOK: "https://facebook.com",
-  INSTAGRAM: "https://instagram.com",
-  TIKTOK: "https://tiktok.com",
+  FACEBOOK: "https://facebook.com/thulirkal",
+  INSTAGRAM: "https://instagram.com/thulirkal",
+  TIKTOK: "https://tiktok.com/@thulirkal",
+  PINTEREST: "https://in.pinterest.com/thulirkal",
+  LINKEDIN: "https://www.linkedin.com/company/thulirkal",
   WHATSAPP: `https://wa.me/${WHATSAPP_CONFIG.DEFAULT_PHONE_NUMBER}`,
 } as const;
 

@@ -4,6 +4,7 @@ import { ShoppingCart, MessageCircle } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
+import { Footer } from "@/components/Footer";
 import { getWhatsAppLink } from "@/lib/cart";
 import { toast } from "@/hooks/use-toast";
 import { SEO } from "@/components/SEO";
@@ -398,7 +399,8 @@ const ProductView = () => {
           )}
         </div>
       </div>
-    </div>
+      <Footer />
+    </div >
   );
 };
 

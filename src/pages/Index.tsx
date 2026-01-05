@@ -13,6 +13,7 @@ import { Facebook, Instagram, MessageCircle, ChevronDown, Menu } from "lucide-re
 import { FaTiktok } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { SOCIAL_LINKS } from "@/config/constants";
+import { Footer } from "@/components/Footer";
 
 // Home Page Layout Configuration - Manually adjust for pixel-perfect alignment
 const LAYOUT_CONFIG = {
@@ -239,6 +240,7 @@ const Index = () => {
           emptyMessage={searchQuery ? "No products match your search" : "No products available"}
         />
       </section>
+      <Footer />
     </div>
   );
 };
