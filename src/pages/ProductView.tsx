@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/useCart";
 import { getWhatsAppLink } from "@/lib/cart";
 import { toast } from "@/hooks/use-toast";
+import { SEO } from "@/components/SEO";
 import { findProductById, getProductsByCategory, getAllProducts } from "@/utils/products";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductCardMobile } from "@/components/ProductCardMobile";
@@ -170,6 +171,37 @@ const ProductView = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {product && (
+        <SEO
+          title={`${product.name}`}
+          description={product.description}
+          image={product.images[0]}
+          type="product"
+          schema={{
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.name,
+            "image": product.images,
+            "description": product.description,
+            "brand": {
+              "@type": "Brand",
+              "name": "Thulirkal"
+            },
+            "offers": {
+              "@type": "Offer",
+              "url": window.location.href,
+              "priceCurrency": "INR",
+              "price": product.price,
+              "availability": "https://schema.org/InStock",
+              "itemCondition": "https://schema.org/NewCondition"
+            },
+            "sku": product.id,
+            "category": product.category,
+            "material": product.material,
+            "weight": product.weight
+          }}
+        />
+      )}
       <Navbar />
       <div className="container mx-auto px-2.5 py-2">
         <div className="space-y-0.5">

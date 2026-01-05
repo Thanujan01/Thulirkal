@@ -3,40 +3,165 @@ import { Product } from "@/types/product";
 export const cloths: Product[] = [
     {
         id: "cl1",
-        name: "Handmade Saree Blouse Design - Elegant Silk Pattern",
-        price: 3500.00,
-        description: "Exquisite handmade saree blouse featuring intricate embroidery and premium silk fabric. Custom-tailored to provide a perfect fit and elegant look for weddings and special occasions. Comfortable, breathable, and designed with traditional craftsmanship.",
+        name: "Hoonulum Heritage Saari, for girls and womens",
+        price: 4500.00,
+        description: "A beautifully handcrafted hoonulum sari made with care and tradition. Soft, elegant, and timeless, it reflects cultural beauty and is perfect for both special occasions and graceful everyday wear.",
         images: [
-            "/head.png",
-            "/slide.png"
+            "/cloths/cl1.png"
         ],
         category: "Cloths",
-        sellerId: "SE002",
-        rating: 4.8,
+        sellerId: "SE004",
+        rating: 4.2,
         sold: 12,
-        size: "Custom",
-        weight: "250 g",
-        material: "Silk",
+        size: "Free Size",
+        weight: "980 g",
+        material: "Hoonulum",
         customizable: true,
-        deliveryFee: 200
+        deliveryFee: 300
     },
     {
         id: "cl2",
-        name: "Traditional Cotton Kurti for Women - Handwoven",
-        price: 1850.00,
-        description: "Stylish and comfortable handwoven cotton kurti, perfect for casual wear and summer outings. Features unique patterns created by skilled artisans. Lightweight, skin-friendly, and durable fabric that gets softer with every wash.",
+        name: "Hoonulum Heritage Saari, for girls and womens",
+        price: 4500.00,
+        description: "A beautifully handcrafted hoonulum sari made with care and tradition. Soft, elegant, and timeless, it reflects cultural beauty and is perfect for both special occasions and graceful everyday wear.",
         images: [
-            "/slide.png",
-            "/head.png"
+            "/cloths/cl2.png"
         ],
         category: "Cloths",
-        sellerId: "SE002",
-        rating: 4.6,
-        sold: 45,
-        size: "M, L, XL",
-        weight: "200 g",
-        material: "Cotton",
+        sellerId: "SE004",
+        rating: 4.2,
+        sold: 10,
+        size: "Free Size",
+        weight: "980 g",
+        material: "Hoonulum",
         customizable: true,
-        deliveryFee: 180
-    }
+        deliveryFee: 300
+    },
+    {
+        id: "cl3",
+        name: "Hoonulum Heritage Saari, for girls and womens",
+        price: 4500.00,
+        description: "A beautifully handcrafted hoonulum sari made with care and tradition. Soft, elegant, and timeless, it reflects cultural beauty and is perfect for both special occasions and graceful everyday wear.",
+        images: [
+            "/cloths/cl3.png"
+        ],
+        category: "Cloths",
+        sellerId: "SE004",
+        rating: 4.0,
+        sold: 8,
+        size: "Free Size",
+        weight: "980 g",
+        material: "Hoonulum",
+        customizable: true,
+        deliveryFee: 300
+    },
+    {
+        id: "cl4",
+        name: "Hoonulum Heritage Saari, for girls and womens",
+        price: 4500.00,
+        description: "A beautifully handcrafted hoonulum sari made with care and tradition. Soft, elegant, and timeless, it reflects cultural beauty and is perfect for both special occasions and graceful everyday wear.",
+        images: [
+            "/cloths/cl4.png"
+        ],
+        category: "Cloths",
+        sellerId: "SE004",
+        rating: 4.1,
+        sold: 7,
+        size: "Free Size",
+        weight: "980 g",
+        material: "Hoonulum",
+        customizable: true,
+        deliveryFee: 300
+    },
+    {
+        id: "cl5",
+        name: "Hoonulum Heritage Saari, for girls and womens",
+        price: 4500.00,
+        description: "A beautifully handcrafted hoonulum sari made with care and tradition. Soft, elegant, and timeless, it reflects cultural beauty and is perfect for both special occasions and graceful everyday wear.",
+        images: [
+            "/cloths/cl5.png"
+        ],
+        category: "Cloths",
+        sellerId: "SE004",
+        rating: 4.2,
+        sold: 4,
+        size: "Free Size",
+        weight: "980 g",
+        material: "Hoonulum",
+        customizable: true,
+        deliveryFee: 300
+    },
+    {
+        id: "cl6",
+        name: "Hoonulum Heritage Saari, for girls and womens",
+        price: 4500.00,
+        description: "A beautifully handcrafted hoonulum sari made with care and tradition. Soft, elegant, and timeless, it reflects cultural beauty and is perfect for both special occasions and graceful everyday wear.",
+        images: [
+            "/cloths/cl6.png"
+        ],
+        category: "Cloths",
+        sellerId: "SE004",
+        rating: 4.2,
+        sold: 12,
+        size: "Free Size",
+        weight: "980 g",
+        material: "Hoonulum",
+        customizable: true,
+        deliveryFee: 300
+    },
+    {
+        id: "cl7",
+        name: "Hoonulum Heritage Saari, for girls and womens",
+        price: 4500.00,
+        description: "A beautifully handcrafted hoonulum sari made with care and tradition. Soft, elegant, and timeless, it reflects cultural beauty and is perfect for both special occasions and graceful everyday wear.",
+        images: [
+            "/cloths/cl7.png"
+        ],
+        category: "Cloths",
+        sellerId: "SE004",
+        rating: 3.9,
+        sold: 5,
+        size: "Free Size",
+        weight: "980 g",
+        material: "Hoonulum",
+        customizable: true,
+        deliveryFee: 300
+    },
+    {
+        id: "cl8",
+        name: "Hoonulum Heritage Saari, for girls and womens",
+        price: 4500.00,
+        description: "A beautifully handcrafted hoonulum sari made with care and tradition. Soft, elegant, and timeless, it reflects cultural beauty and is perfect for both special occasions and graceful everyday wear.",
+        images: [
+            "/cloths/cl8.png"
+        ],
+        category: "Cloths",
+        sellerId: "SE004",
+        rating: 3.9,
+        sold: 6,
+        size: "Free Size",
+        weight: "980 g",
+        material: "Hoonulum",
+        customizable: true,
+        deliveryFee: 300
+    },
+    {
+        id: "cl9",
+        name: "Hoonulum Heritage Saari, for girls and womens",
+        price: 4500.00,
+        description: "A beautifully handcrafted hoonulum sari made with care and tradition. Soft, elegant, and timeless, it reflects cultural beauty and is perfect for both special occasions and graceful everyday wear.",
+        images: [
+            "/cloths/cl9.png"
+        ],
+        category: "Cloths",
+        sellerId: "SE004",
+        rating: 4.1,
+        sold: 4,
+        size: "Free Size",
+        weight: "980 g",
+        material: "Hoonulum",
+        customizable: true,
+        deliveryFee: 300
+    },
+
 ];
