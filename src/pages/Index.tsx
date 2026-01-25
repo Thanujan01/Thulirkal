@@ -14,6 +14,7 @@ import { FaTiktok } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { SOCIAL_LINKS } from "@/config/constants";
 import { Footer } from "@/components/Footer";
+import { FloatingGameIcon } from "@/components/FloatingGameIcon";
 
 // Home Page Layout Configuration - Manually adjust for pixel-perfect alignment
 const LAYOUT_CONFIG = {
@@ -148,6 +149,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      <FloatingGameIcon />
 
       {/* Hero Slides Section (text then product images slideshow) */}
       <SlidesHero />

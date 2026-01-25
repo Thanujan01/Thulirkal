@@ -8,8 +8,8 @@ export interface SlideImage {
 
 export const slideImages: SlideImage[] = [
   { src: "/slide.png", alt: "HandCrafted with Love" },
-  { src: "/jewelleries/br_A.jpg", alt: "Handcrafted bracelet collection 2" },
-  { src: "/jewelleries/br_B.jpg", alt: "Unique handmade bracelet close-up" },
+  { src: "/slide_1.png", alt: "Handcrafted bracelet collection 2" },
+  { src: "/slide3.png", alt: "Unique handmade bracelet close-up" },
 ];
 
 

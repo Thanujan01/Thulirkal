@@ -29,6 +29,7 @@ export const SEO = ({
             {/* Basic Metadata */}
             <title>{title} | {siteName}</title>
             <meta name='description' content={description} />
+            <link rel='canonical' href={currentUrl} />
 
             {/* OpenGraph / Facebook */}
             <meta property='og:type' content={type} />

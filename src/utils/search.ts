@@ -17,12 +17,12 @@ export interface SearchResult {
 const matchesProgressivePrefix = (name: string, query: string): number => {
   const lowerName = name.toLowerCase();
   const lowerQuery = query.toLowerCase();
-  
+
   // Check if name starts with query (exact prefix match)
   if (lowerName.startsWith(lowerQuery)) {
     return lowerQuery.length; // Return length of matched prefix
   }
-  
+
   // Check if name starts with any prefix of the query
   // For "jewels", check "j", "je", "jew", "jewe", "jewel", "jewels"
   for (let i = 1; i < lowerQuery.length; i++) {
@@ -31,7 +31,7 @@ const matchesProgressivePrefix = (name: string, query: string): number => {
       return i; // Return length of matched prefix
     }
   }
-  
+
   return 0; // No prefix match
 };
 
@@ -112,8 +112,18 @@ export const searchProducts = (products: Product[], query: string): Product[] =>
   // Sort by score (descending) - best matches first
   results.sort((a, b) => b.score - a.score);
 
+  // Deduplicate by ID
+  const seenIds = new Set<string>();
+  const uniqueResults = results.filter((result) => {
+    if (seenIds.has(result.product.id)) {
+      return false;
+    }
+    seenIds.add(result.product.id);
+    return true;
+  });
+
   // Return products in order of relevance
-  return results.map((result) => result.product);
+  return uniqueResults.map((result) => result.product);
 };
 
 /**
